@@ -31,7 +31,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="intel_module.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="solvemodule.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="structures.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
