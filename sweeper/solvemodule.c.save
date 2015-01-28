@@ -1,5 +1,3 @@
-
-
 int check_known(struct llnode *block){
     int count = 0;
     if(block->ul->state > -1){
@@ -33,28 +31,28 @@ int check_known(struct llnode *block){
 
 int check_bomb(struct llnode *block){
     int count = 0;
-    if(block->ul->state == -2){
+    if(block->ul == -2){
             count++;
     }
-    if(block->u->state == -2){
+    if(block->u == -2){
             count++;
     }
-    if(block->ur->state == -2){
+    if(block->ur == -2){
             count++;
     }
-    if(block->r->state == -2){
+    if(block->r == -2){
             count++;
     }
-    if(block->br->state == -2){
+    if(block->br == -2){
             count++;
     }
-    if(block->b->state == -2){
+    if(block->b == -2){
             count++;
     }
-    if(block->bl->state == -2){
+    if(block->bl == -2){
             count++;
     }
-    if(block->l->state == -2){
+    if(block->l == -2){
             count++;
     }
 

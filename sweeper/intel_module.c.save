@@ -7,9 +7,7 @@
 //  tree attached to the end of the decision tree (so each decision tree is 18 long)
 //  nextbranch represents the next head that is connected to a branch of possiblities
 struct head {
-    int s_tree;
-    int value;
-    int deep;
+    
     struct decisiontree *branch;
     struct head *nextbranch;
 };
