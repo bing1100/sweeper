@@ -11,7 +11,7 @@
 // and 0 to 8 depending on how many bombs are surrounding it
 
 // Each one of the blocks surrounding the llnode block is represented by letters
-// u = up, l = left, r = right, b = back
+// u = up, l = left, r = right, b = bottom
 // *This is a doubly linked list so that if we start a llnode x and x has b llnode y
 //  then the u of llnode y is x
 
@@ -161,6 +161,7 @@ struct llnode *cons_grid(int hs, int vs, struct llnode *initial){
 }
 
 // We must create destructor functions now, the destructor functions will use the logic as the constructor
+// initial is upper left corner
 
 void free_grid(struct llnode *initial){
 
@@ -171,7 +172,7 @@ void free_grid(struct llnode *initial){
 
     llnodeh = initial;
     while (llnodeh != NULL){
-        backuph = llnodeh->l;
+        backuph = llnodeh->r;
         llnodev=llnodeh;
         while(llnodev != NULL){
             backupv = llnodev->b;
