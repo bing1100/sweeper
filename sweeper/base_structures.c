@@ -8,6 +8,7 @@
 // -1 = unknown block
 // -2 = block contains a bomb
 // -3 = possible bomb
+// -4 = safe
 // and 0 to 8 depending on how many bombs are surrounding it
 
 // Each one of the blocks surrounding the llnode block is represented by letters
@@ -182,3 +183,4 @@ void free_grid(struct llnode *initial){
         llnodev=backuph;
     }
 }
+
