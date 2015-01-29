@@ -31,76 +31,57 @@ struct decisiontree *cons_nextbranch(int node_value, int deep, struct decisiontr
 
     initial->nextbranch = new;
 
-    new->branch
+    new->branch = NULL;
+    new->nextbranch = NULL;
+    new->s_tree = 0;
+    new->deep = deep + 1;
+    new->node_value = node_value;
 
-
+    return new;
 };
 
+struct decisiontree *cons_solution(int node_value, int deep, struct decisiontree *initial){
+
+    assert(initial != NULL && initial->s_tree == 1);
+
+    struct decisiontree *new = malloc(sizeof(struct decisiontree));
+
+    initial->branch = new;
+
+    new->branch = NULL;
+    new->nextbranch = NULL;
+    new->s_tree = 1;
+    new->deep = deep + 1;
+    new->node_value = node_value;
+
+    return new;
+};
+
+struct decisiontree *cons_branch(int node_value, int deep, struct decisiontree *initial){
+
+    assert(initial != NULL && initial->s_tree == 0);
+
+    struct decisiontree *new = malloc(sizeof(struct decisiontree));
+
+    initial->branch = new;
+
+    new->branch = NULL;
+    new->nextbranch = NULL;
+    new->s_tree = 0;
+    new->deep = deep + 1;
+    new->node_value = node_value;
+
+    return new;
+};
 
 void free_decisiontree(struct decisiontree *initial){
-    while (initial != NULL){
-        struct decisiontree *temp = initial->rest;
+    if(initial != NULL){
+        struct decisiontree *tempbranch = initial->branch;
+        struct decisiontree *tempnextbranch = initial->nextbranch;
         free(initial);
-        initial = temp;
+        free_decisiontree(tempbranch);
+        free_decisiontree(tempnextbranch);
     }
 }
-
-struct head *cons_head(struct head *initial){
-    struct head *newhead = malloc(sizeof(struct head));
-
-    initial->nextbranch = newhead;
-    newhead->branch = NULL;
-    newhead->nextbranch = NULL;
-
-    return newhead;
-};
-
-void free_head(struct head *initial){
-    while (initial != NULL){
-        struct head *temp = initial->nextbranch;
-        free_decisiontree(initial->branch);
-        free(initial);
-        initial = temp;
-    }
-}
-
-struct decisiontree *add_tree(int level,struct head *initial,int initial_node_value){
-
-    struct head *newhead = cons_head(initial);
-
-    struct decisiontree *new = malloc(sizeof(struct decisiontree));
-
-    newhead->nextbranch = NULL;
-    initial->nextbranch = newhead;
-    newhead->branch = new;
-
-    new->deep = 0;
-
-    new->node_value = initial_node_value;
-
-    new->s_tree = 0;
-
-    new->rest = NULL;
-
-    return new;
-};
-
-struct decisiontree *add_solution(struct decisiontree *lastnode, int block_value){
-    struct decisiontree *new = malloc(sizeof(struct decisiontree));
-
-    lastnode->rest = new;
-
-    new->deep = 0;
-
-    new->node_value = block_value;
-
-    new->s_tree = 1;
-
-    new->rest = NULL;
-
-    return new;
-
-};
-
 
 

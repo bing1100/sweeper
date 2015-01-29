@@ -62,3 +62,12 @@ int check_bomb(struct llnode *block){
 }
 
 
+struct llnode *mark_bomb(struct llnode *block){
+
+
+    knownblocks = check_known(block);
+    bombsaround = check_bomb(block);
+
+    value
+
+};
