@@ -18,7 +18,7 @@
 
 // int hg (horizontal grid) and vg (vertical grid) represent where the llnode is on the 30 by 16 grid
 // and these values are utilised to generate the 30 by 16 grid. (top and left is zero and increases)
-fd
+
 struct llnode {
     int hg;
     int vg;
