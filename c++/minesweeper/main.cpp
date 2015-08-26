@@ -7,6 +7,8 @@
 
 #include <cstdlib>
 
+#include "Controller.h"
+#include "Board.h"
 using namespace std;
 
 /*
