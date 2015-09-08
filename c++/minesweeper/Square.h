@@ -16,8 +16,9 @@ class Square {
     
     // Important values of the square
     int value;
+    bool marked;
     bool hidden;
-    int moveCounter;
+    bool checked;
     
 public:
     
@@ -25,13 +26,18 @@ public:
     ~Square(); // Destructor
     
     // Update the hidden boolean based on the given char value
-    bool update(char ch);
+    bool update(char val);
     
     
     // Getter/Setter
     bool getHidden();
+    char getValue();
+    bool getMarked();
+    bool check();
+    void unhide();
     bool isBomb();
-    void setValue(char val);
+    void incValue();
+    void setBomb();
     
 };
 

@@ -13,29 +13,30 @@ class Square;
 class Controller;
 
 class Board {
+
+	// Dimensions of the board
+	int h;
+	int w;
     
     // Number of bombs
     int b;
     
     //Controller
-    Controller cont;
+    Controller * cont;
     
     // The game board
     Square *** gArray;
     
     // Helper function
-    void notifyNeighbour(int h, int w, bool r, char type);
+    void notifyNeighbour(int h, int w);
     
 public:
     
-    Board(Controller cont, int h, int w, int b); // Constructor
+    Board(Controller * cont, int h, int w, int b); // Constructor
     ~Board(); // Destructor
     
-    // Update the two game Boards
-    void updateSquare(int h, int w, char ch);
-    void updateHint();
-    void setup();
-    
+    // Update the game Boards
+    bool updateSquare(int h, int w, char ch);
     
     
 };

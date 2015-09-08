@@ -12,12 +12,15 @@
 #include <string>
 
 class View {
+
+	int h;
+	int w;
     
     char ** board;
     char ** hint;
     
 public:
-    View();  // Constructor
+    View(int h, int w);  // Constructor
     virtual ~View() = 0; // Destructor
     
     // Methods for game board

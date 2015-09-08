@@ -9,11 +9,11 @@
 #ifndef TEXTDISPLAY_H
 #define	TEXTDISPLAY_H
 
-#include "View.h"
+class view;
 
 class TextDisplay: public View {
     public:
-        TextDisplay();
+        TextDisplay(int h, int w);
         ~TextDisplay();
 };
 

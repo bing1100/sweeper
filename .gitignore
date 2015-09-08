@@ -43,3 +43,8 @@ Temporary Items
 .apdisk
 nbproject
 /c++/minesweeper/build/
+/c++/.metadata
+/c++/minesweeper/.project
+/c++/minesweeper/.cproject
+/c++/minesweeper/.settings
+c++/RemoteSystemsTempFiles/.project

@@ -13,15 +13,15 @@ class TextDisplay;
 class Board;
 
 class Controller {
-    Board gBoard;
-    TextDisplay tDisp;
+    Board * gBoard;
+    TextDisplay * tDisp;
     
 public:
     
     Controller(); // Constructor
     ~Controller(); // Destructor
     
-    void notifyView(char type, char ch, int h, int w); 
+    void notifyView(char type, char ch, int h, int w);
     void displayHint();
     void play();
     void setup();
