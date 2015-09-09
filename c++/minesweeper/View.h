@@ -13,23 +13,26 @@
 
 class View {
 
+public:
+
 	int h;
 	int w;
+
+	char ** board;
+	char ** hint;
     
-    char ** board;
-    char ** hint;
-    
-public:
     View(int h, int w);  // Constructor
     virtual ~View() = 0; // Destructor
     
+
     // Methods for game board
     void update (int h , int w , char ch);
-    void print (std::string msg);
     
     // Methods for hint board
     void updateHint (int h , int w , char ch);
-    void printHint (std::string msg);
+
+    // Printer
+    virtual void print (std::string msg, char type) = 0;
         
 };
 

@@ -9,12 +9,15 @@
 #ifndef TEXTDISPLAY_H
 #define	TEXTDISPLAY_H
 
-class view;
+class View;
 
 class TextDisplay: public View {
     public:
         TextDisplay(int h, int w);
         ~TextDisplay();
+
+        // Printer
+        void print (std::string msg, char type);
 };
 
 #endif	/* TEXTDISPLAY_H */
