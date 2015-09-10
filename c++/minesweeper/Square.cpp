@@ -7,6 +7,7 @@
 Square::Square(int h, int w, int val): h(h), w(w), value(val) {
 	hidden = true;
 	checked = false;
+	marked = false;
 }
 
 /*
@@ -38,7 +39,7 @@ bool Square::getMarked() {
  */
 
 char Square::getValue() {
-	return (char) value;
+	return '0' + value;
 }
 
 /*

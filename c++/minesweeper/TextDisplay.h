@@ -9,7 +9,8 @@
 #ifndef TEXTDISPLAY_H
 #define	TEXTDISPLAY_H
 
-class View;
+#include <string>
+#include "View.h"
 
 class TextDisplay: public View {
     public:

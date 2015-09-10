@@ -16,6 +16,10 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
+	Controller * cont = new Controller;
+
+	cont->setup();
+
     return 0;
 }
 

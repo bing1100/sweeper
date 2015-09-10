@@ -20,6 +20,7 @@ class Board {
     
     // Number of bombs
     int b;
+    int nWrong;
     
     //Controller
     Controller * cont;
@@ -31,13 +32,13 @@ class Board {
     void notifyNeighbour(int h, int w);
     
 public:
-    
+
     Board(Controller * cont, int h, int w, int b); // Constructor
     ~Board(); // Destructor
     
     // Update the game Boards
-    bool updateSquare(int h, int w, char ch);
-    
+    int updateSquare(int h, int w, char ch, int nb = 0);
+    bool anyWrong();
     
 };
 

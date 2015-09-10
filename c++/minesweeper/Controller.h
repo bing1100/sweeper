@@ -8,11 +8,16 @@
 #ifndef CONTROLLER_H
 #define	CONTROLLER_H
 
-class TextDisplay;
-
-class Board;
+#include "Board.h"
+#include "View.h"
+#include "TextDisplay.h"
 
 class Controller {
+
+
+	int numB;
+	int h;
+	int w;
     Board * gBoard;
     TextDisplay * tDisp;
     

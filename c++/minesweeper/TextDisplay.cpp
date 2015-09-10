@@ -22,7 +22,23 @@ void TextDisplay::print(std::string msg, char type) {
 
 	char *** pObject = &(type == 'h' ? hint : board);
 
+
+	// Print the width size on top
+	std::cout << " ";
+	for (int w_i = 0 ; w_i < w ; w_i++) {
+
+		std::cout << w_i;
+
+	}
+
+	std::cout << std::endl;
+
+	// Print the rest of the table
 	for (int h_i = 0 ; h_i < h ; h_i++) {
+
+		// Print the height labels
+		std::cout << h_i;
+
 		for (int w_i = 0 ; w_i < w ; w_i++) {
 
 			std::cout << (*pObject)[h_i][w_i];
@@ -33,5 +49,8 @@ void TextDisplay::print(std::string msg, char type) {
 
 	}
 
+	std::cout << std::endl;
+
+	//Print the ending message
 	std::cout << msg << std::endl;
 }
