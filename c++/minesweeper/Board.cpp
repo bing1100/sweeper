@@ -45,37 +45,29 @@ Board::Board(Controller * cont, int h, int w, int b): cont(cont), b(b), w(w), h(
 		// Set the square to be a bomb, if it isnt already a bomb
 		if(!gArray[c_h][c_w]->isBomb()) {
 
-			std::cout << "Make it a bomb" << std::endl;
-
 			gArray[c_h][c_w]->setBomb();
 			bCount++;
-
-			std::cout << "Made it a bomb" << std::endl;
 
 			// Notify the view
 			cont->notifyView('h','9',c_h, c_w);
 
-			std::cout << "Notified View" << std::endl;
-
 			//Update the surrounding squares - Double switch mechanism
-			for(int i = 0 ; i <= 4 ; i++) {
+			for(int hInc = -1 ; hInc <= 1 ; hInc++) {
+				for (int wInc = -1 ; wInc <= 1 ; wInc++) {
 
-				// Double Switch mechanism sets the increment values
-				int hInc = (i <= 2 ? -1 : 1);
-				int wInc = (i % 2 == 0 ? -1 : 1);
+					// Sets the working dimensions
+					int wH = c_h + hInc;
+					int wW = c_w + wInc;
 
-				// Sets the working dimensions
-				int wH = c_h + hInc;
-				int wW = c_w + wInc;
+					// Increment the value if can be incremented
+					if ((0 <= wH && wH < h)
+					  &&(0 <= wW && wW < w)) {
 
-				// Increment the value if can be incremented
-				if ((0 <= wH && wH < h)
-				  &&(0 <= wW && wW < w)) {
+						gArray[wH][wW]->incValue();
 
-					gArray[wH][wW]->incValue();
-
-					// Notify the view
-					cont->notifyView('h', gArray[wH][wW]->getValue() ,c_h, c_w);
+						// Notify the view
+						cont->notifyView('h', gArray[wH][wW]->getValue() ,wH, wW);
+					}
 				}
 			}
 		}
@@ -118,7 +110,7 @@ int Board::updateSquare(int h, int w, char ch, int nb) {
 
 	if (ch == 'c' ) {
 
-		if (!gArray[h][w]->getMarked()) {
+		if (!gArray[h][w]->getMarked() && gArray[h][w]->getHidden()) {
 
 			succ = gArray[h][w]->update(ch);
 
@@ -126,15 +118,20 @@ int Board::updateSquare(int h, int w, char ch, int nb) {
 
 				notifyNeighbour(h,w);
 
+
 			}
 		}
 
-		return  gArray[h][w]->getMarked() || succ;
+		return  gArray[h][w]->getMarked() || !gArray[h][w]->getHidden();
 
 	} else {
-		if (!gArray[h][w]->getMarked() && nb < b) {
+		if (!gArray[h][w]->getMarked() && nb < b && gArray[h][w]->getHidden()) {
+
+			std::cout << "return 2" << std::endl;
+
 
 			gArray[h][w]->update(ch);
+
 
 			if (!gArray[h][w]->isBomb()) {
 				nWrong++;
@@ -143,19 +140,29 @@ int Board::updateSquare(int h, int w, char ch, int nb) {
 			cont->notifyView('g', '9', h, w);
 
 			return 2;
-		} else if (!gArray[h][w]->getMarked()){
+		} else if (!gArray[h][w]->getMarked() && gArray[h][w]->getHidden()){
+
+			std::cout << "return 3" << std::endl;
 
 			return 3;
-		} else {
+		} else if (gArray[h][w]->getHidden()) {
+
+			std::cout << "return 4a" << std::endl;
 
 			gArray[h][w]->update(ch);
+
+			std::cout << "return 4aa" << std::endl;
 
 			if (!gArray[h][w]->isBomb()) {
 				nWrong--;
 			}
 
-			cont->notifyView('g', '0', h, w);
+			std::cout << "return 4aaa" << std::endl;
+			cont->notifyView('g', '-', h, w);
+			std::cout << "return 4aaaa" << std::endl;
 			return 4;
+		} else {
+			return 0;
 		}
 	}
 
@@ -168,6 +175,8 @@ int Board::updateSquare(int h, int w, char ch, int nb) {
 
 void Board::notifyNeighbour(int h, int w) {
 
+	std::cout << "called for : " << h << " " << w << " " <<gArray[h][w]->getValue()  << std::endl;
+
 	gArray[h][w]->unhide();
 
 	gArray[h][w]->check();
@@ -176,24 +185,21 @@ void Board::notifyNeighbour(int h, int w) {
 
 	if (gArray[h][w]->getValue() == '0'){
 		//Update the surrounding squares - Double switch mechanism
-		for(int i = 0 ; i <= 4 ; i++) {
+		for(int hInc = -1 ; hInc <= 1 ; hInc++) {
+			for (int wInc = -1 ; wInc <= 1 ; wInc++) {
 
-			// Double Switch mechanism sets the increment values
-			int hInc = (i <= 2 ? -1 : 1);
-			int wInc = (i % 2 == 0 ? -1 : 1);
+				// Sets the working dimensions
+				int wH = h + hInc;
+				int wW = w + wInc;
 
-			// Sets the working dimensions
-			int wH = h + hInc;
-			int wW = w + wInc;
+				// Increment the value if can be incremented
+				if ((0 <= wH && wH < this->h)
+				  &&(0 <= wW && wW < this->w)
+				  &&(!gArray[wH][wW]->check())) {
 
-			// Increment the value if can be incremented
-			if ((0 <= wH && wH < h)
-			  &&(0 <= wW && wW < w)
-			  &&(!gArray[wH][wW]->check())) {
-
-
-				// Self Recursion
-				notifyNeighbour(wH,wW);
+					// Self Recursion
+					notifyNeighbour(wH,wW);
+				}
 			}
 		}
 	}

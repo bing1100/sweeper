@@ -23,8 +23,8 @@ View::View(int h, int w): h(h), w(w) {
 		
 		for (int w_i = 0 ; w_i < w ; w_i++) {
 
-			board[h_i][w_i] = '0';
-			hint[h_i][w_i] = '0';
+			board[h_i][w_i] = '-';
+			hint[h_i][w_i] = '-';
 
 		}
 

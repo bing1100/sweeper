@@ -94,11 +94,8 @@ void Controller::setup() {
 
 	}
 
-	std::cout << "1" << std::endl;
 	tDisp = new TextDisplay(h, w);
-	std::cout << "2" << std::endl;
 	gBoard = new Board(this, h, w, b);
-	std::cout << "3" << std::endl;
 
 	numB = b;
 	this->h = h;
@@ -115,7 +112,7 @@ void Controller::play() {
 
 	int counB = 0;
 
-	while (counB <= numB && !gBoard->anyWrong()) {
+	while (!(counB == numB) || gBoard->anyWrong()) {
 
 		int h = -1;
 		int w = -1;
@@ -174,20 +171,26 @@ void Controller::play() {
 		} else if (type == 'c') {
 			if (!gBoard->updateSquare(h,w,'c')) {
 				tDisp->print("Game Over, Please try Again :(", 'h');
-				break;
+				return;
 			}
 
 			tDisp->print("", 'g');
 
 		} else {
 
-			if (gBoard->updateSquare(h,w,'c',counB) == 2) {
+			int code = gBoard->updateSquare(h,w,'b',counB);
+
+			if (code == 2) {
 				counB++;
+				std::cout << "adding bomb" << std::endl;
 				tDisp->print("", 'g');
-			} else if (gBoard->updateSquare(h,w,'c',counB) == 3) {
+			} else if (code == 3) {
+
 				tDisp->print("Too many bombs", 'g');
-			} else {
+			} else if (code == 4) {
 				counB--;
+
+				std::cout << "removing bomb" << std::endl;
 				tDisp->print("", 'g');
 			}
 
